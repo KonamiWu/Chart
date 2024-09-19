@@ -93,6 +93,7 @@ class HTMLCanvas {
             this.refresh();
         });
         canvas.addEventListener('touchstart', (event) => {
+            event.preventDefault();
             const touch = event.touches[0];
             this.isDragging = true;
             this.lastMoveTime = Date.now();
@@ -104,6 +105,7 @@ class HTMLCanvas {
             this.refresh();
         });
         canvas.addEventListener('touchmove', (event) => {
+            event.preventDefault();
             const touch = event.touches[0];
             this.focusPoint.x = touch.clientX;
             this.focusPoint.y = touch.clientY;
@@ -131,6 +133,7 @@ class HTMLCanvas {
             }
         });
         canvas.addEventListener('touchend', (event) => {
+            event.preventDefault();
             if (this.totalTime != 0) {
                 const velocity = this.totalDistance.x / this.totalTime;
                 this.targetX += velocity;
