@@ -101,63 +101,63 @@ class HTMLCanvas {
             this.lastMoveTime = null;
             this.refresh();
         });
-        // canvas.addEventListener('touchstart', (event) => {
-        //     event.preventDefault();
-        //     const touch = event.touches[0];
-        //     this.isDragging = true;
-        //     this.lastMoveTime = Date.now();
-        //     this.totalTime = 0;
-        //     this.totalDistance = new Point(0, 0);
-        //     this.previousPoint.x = touch.clientX;
-        //     this.previousPoint.y = touch.clientY;
-        //     this.targetX = this.offset.x
-        //     this.refresh();
-        // });
-        // canvas.addEventListener('touchmove', (event) => {
-        //     console.log(`inininin`);
-        //     event.preventDefault();
-        //     const touch = event.touches[0];
-        //     this.focusPoint.x = touch.clientX;
-        //     this.focusPoint.y = touch.clientY;
-        //     if (this.isDragging && this.lastMoveTime){
-        //         const currentTime = Date.now();
-        //         const deltaTime = (currentTime - this.lastMoveTime) / 1000;
-        //         const dx = touch.clientX - this.previousPoint.x;
-        //         this.totalDistance.x -= dx * deviceRatio;
-        //         this.totalTime += deltaTime;
-        //         this.previousPoint = new Point(touch.clientX, touch.clientY);
-        //         this.lastMoveTime = currentTime;
-        //         this.targetX -= dx * deviceRatio;
-        //         if(this.targetX > this.contentWidth - width) {
-        //             this.targetX = this.contentWidth - width
-        //         }
-        //         if(this.targetX <= 0) {
-        //             this.targetX = 0;
-        //         }
-        //         this.offset.x = this.targetX
-        //         this.refresh()
-        //         window.setTimeout(() => {
-        //             this.totalTime = 0;
-        //             this.totalDistance = new Point(0, 0);
-        //         }, 100);
-        //     } 
-        // });
-        // canvas.addEventListener('touchend', (event) => {
-        //     event.preventDefault();
-        //     if (this.totalTime != 0) {
-        //         const velocity = this.totalDistance.x / this.totalTime
-        //         this.targetX += velocity
-        //     }
-        //     if(this.targetX > this.contentWidth - width) {
-        //         this.targetX = this.contentWidth - width
-        //     }
-        //     if(this.targetX <= 0) {
-        //         this.targetX = 0;
-        //     }
-        //     this.isDragging = false;
-        //     this.lastMoveTime = null;
-        //     this.refresh();
-        // });
+        canvas.addEventListener('touchstart', (event) => {
+            event.preventDefault();
+            const touch = event.touches[0];
+            this.isDragging = true;
+            this.lastMoveTime = Date.now();
+            this.totalTime = 0;
+            this.totalDistance = new Point(0, 0);
+            this.previousPoint.x = touch.clientX;
+            this.previousPoint.y = touch.clientY;
+            this.targetX = this.offset.x;
+            this.refresh();
+        });
+        canvas.addEventListener('touchmove', (event) => {
+
+            event.preventDefault();
+            const touch = event.touches[0];
+            this.focusPoint.x = touch.clientX;
+            this.focusPoint.y = touch.clientY;
+            if (this.isDragging && this.lastMoveTime) {
+                const currentTime = Date.now();
+                const deltaTime = (currentTime - this.lastMoveTime) / 1000;
+                const dx = touch.clientX - this.previousPoint.x;
+                this.totalDistance.x -= dx * deviceRatio;
+                this.totalTime += deltaTime;
+                this.previousPoint = new Point(touch.clientX, touch.clientY);
+                this.lastMoveTime = currentTime;
+                this.targetX -= dx * deviceRatio;
+                if (this.targetX > this.contentWidth - width) {
+                    this.targetX = this.contentWidth - width;
+                }
+                if (this.targetX <= 0) {
+                    this.targetX = 0;
+                }
+                this.offset.x = this.targetX;
+                this.refresh();
+                window.setTimeout(() => {
+                    this.totalTime = 0;
+                    this.totalDistance = new Point(0, 0);
+                }, 100);
+            }
+        });
+        canvas.addEventListener('touchend', (event) => {
+            event.preventDefault();
+            if (this.totalTime != 0) {
+                const velocity = this.totalDistance.x / this.totalTime;
+                this.targetX += velocity;
+            }
+            if (this.targetX > this.contentWidth - width) {
+                this.targetX = this.contentWidth - width;
+            }
+            if (this.targetX <= 0) {
+                this.targetX = 0;
+            }
+            this.isDragging = false;
+            this.lastMoveTime = null;
+            this.refresh();
+        });
     }
     draw() {
         var _a;
