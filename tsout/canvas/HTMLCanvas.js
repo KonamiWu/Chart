@@ -83,6 +83,12 @@ class HTMLCanvas {
                 const velocity = this.totalDistance.x / this.totalTime;
                 this.targetX += velocity;
             }
+            if (this.targetX > this.contentWidth - width) {
+                this.targetX = this.contentWidth - width;
+            }
+            if (this.targetX <= 0) {
+                this.targetX = 0;
+            }
             this.isDragging = false;
             this.lastMoveTime = null;
             this.refresh();
@@ -137,6 +143,12 @@ class HTMLCanvas {
             if (this.totalTime != 0) {
                 const velocity = this.totalDistance.x / this.totalTime;
                 this.targetX += velocity;
+            }
+            if (this.targetX > this.contentWidth - width) {
+                this.targetX = this.contentWidth - width;
+            }
+            if (this.targetX <= 0) {
+                this.targetX = 0;
             }
             this.isDragging = false;
             this.lastMoveTime = null;
